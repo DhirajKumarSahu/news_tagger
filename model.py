@@ -5,6 +5,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import re
+import nltk
+nltk.download('punkt')
 
 #news = 'India won the ICC 2023 world cup'
 #news = 'Bala Subramaniam gets the best singer award'
