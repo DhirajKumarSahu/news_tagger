@@ -5,8 +5,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import re
-import nltk
-nltk.download('punkt')
+#import nltk
+#nltk.download('punkt')
+#nltk.download('wordnet')
 
 #news = 'India won the ICC 2023 world cup'
 #news = 'Bala Subramaniam gets the best singer award'
@@ -64,8 +65,8 @@ def preprocess_text(sentence):
 
 lemmatizer = WordNetLemmatizer()
 
-def lematize_sentence(sentence):
-    return ' '.join([lemmatizer.lemmatize(word) for word in word_tokenize(sentence)])
+#def lematize_sentence(sentence):
+#    return ' '.join([lemmatizer.lemmatize(word) for word in word_tokenize(sentence)])
 
 st.title("Get your NEWS tagged!")
 news = st.text_input('Please enter the NEWS') 
@@ -74,7 +75,7 @@ if not news:
   st.stop()
 
 news = preprocess_text(news)
-news = lematize_sentence(news)
+#news = lematize_sentence(news)
 
 vectorizer = pickle.load(open('vectorizer.sav', 'rb'))
 
