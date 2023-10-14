@@ -69,25 +69,29 @@ lemmatizer = WordNetLemmatizer()
 #    return ' '.join([lemmatizer.lemmatize(word) for word in word_tokenize(sentence)])
 
 st.title("Get your NEWS tagged!")
-news = st.text_input('Please enter the NEWS') 
 
-if not news:
-  st.stop()
+with st.form("my_form"):
+    news = st.text_input('Please enter the NEWS') 
+    submitted = st.form_submit_button("Submit")
 
-news = preprocess_text(news)
-#news = lematize_sentence(news)
+    if not news:
+      st.stop()
 
-vectorizer = pickle.load(open('vectorizer.sav', 'rb'))
+    if submitted:
+        news = preprocess_text(news)
+        #news = lematize_sentence(news)
 
-news = vectorizer.transform([news])
+        vectorizer = pickle.load(open('vectorizer.sav', 'rb'))
 
-model = pickle.load(open('news_tagger.sav', 'rb'))
+        news = vectorizer.transform([news])
 
-prediction = model.predict(news)[0]
+        model = pickle.load(open('news_tagger.sav', 'rb'))
 
-mappings = {0:'Business', 1:'Entertainment', 2:'Politics', 3:'Sports', 4:'Technology'}
+        prediction = model.predict(news)[0]
 
-category = None 
-category = mappings.get(prediction)
+        mappings = {0:'Business', 1:'Entertainment', 2:'Politics', 3:'Sports', 4:'Technology'}
 
-st.write('The NEWS is from ', category)
+        category = None 
+        category = mappings.get(prediction)
+
+        st.write('The NEWS is from ', category)
